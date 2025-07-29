@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
@@ -7,7 +9,7 @@ use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
-    public function successResponse($message, $result, $code = 200)
+    public function successResponse(string $message, object|array $result, int $code = 200)
     {
         $response = [
             'statusCode' => $code,
@@ -19,7 +21,7 @@ class BaseController extends Controller
         return response()->json($response, $code);
     }
 
-    public function errorResponse($message, $code = 500)
+    public function errorResponse(string|array $message, int $code = 500)
     {
         $response = [
             'statusCode' => $code,

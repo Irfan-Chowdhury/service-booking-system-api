@@ -4,11 +4,8 @@ use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
 beforeEach(function () {
-    // প্রতিটি টেস্টের আগে DB রিসেট হবে
     \Illuminate\Foundation\Testing\RefreshDatabase::class;
 });
-
-// uses(RefreshDatabase::class);
 
 
 it('fails when email is missing', function () {
@@ -47,3 +44,7 @@ it('fails when email already exists', function () {
     $response->assertStatus(422)
              ->assertJsonValidationErrors(['email']);
 });
+
+
+
+// ./vendor/bin/pest tests/Feature/Auth/RegistrationTest.php

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
 use Illuminate\Http\Request;
@@ -31,6 +32,28 @@ class AuthController extends BaseController
 
         } catch (Exception $e) {
             return $this->errorResponse('Registration failed : '. $e->getMessage(), 500);
+        }
+    }
+
+
+    public function login(LoginRequest $request, AuthService $authService)
+    {
+        try {
+            $result = $authService->login($request->validated());
+
+            return $this->successResponse(
+                'Login successful.',
+                [
+                    'token' => $result['token'],
+                    'user'  => new UserResource($result['user']),
+                ],
+                200
+            );
+
+        } catch (Exception $e) {
+            $statusCode = $e->getCode() === 401 ? 401 : 500;
+
+            return $this->errorResponse('Login failed: ' . $e->getMessage(), $statusCode);
         }
     }
 }

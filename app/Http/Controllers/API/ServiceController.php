@@ -4,11 +4,13 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Service\ServiceCreateRequest;
+use App\Http\Requests\Service\ServiceUpdateRequest;
 use App\Http\Resources\ServiceResource;
 use App\Services\ServiceService;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class ServiceController extends BaseController
 {
@@ -37,6 +39,41 @@ class ServiceController extends BaseController
 
         } catch (Exception $e) {
             return $this->errorResponse('Failed to create service: ' . $e->getMessage(), 500);
+        }
+    }
+
+    public function update(ServiceUpdateRequest $request, ServiceService $serviceService, int $id)
+    {
+        try {
+            $service = $serviceService->updateService($id, $request->validated());
+
+            return (new ServiceResource($service))->additional([
+                'statusCode' => 200,
+                'success' => true,
+                'message' => 'Service updated successfully.'
+            ]);
+
+        } catch (Exception $e) {
+            return $this->errorResponse('Failed to update service: ' . $e->getMessage(),  500);
+        }
+    }
+
+
+    public function destroy(ServiceService $serviceService, int $id)
+    {
+        try {
+            $serviceService->deleteService($id);
+
+            return $this->successResponse(
+                'Service deleted successfully.',
+                [],
+                200
+            );
+        } catch (ModelNotFoundException $e) {
+            return $this->errorResponse('Service not found.', 404);
+        }
+        catch (Exception $e) {
+            return $this->errorResponse('Failed to delete service: ' . $e->getMessage(), 500);
         }
     }
 }

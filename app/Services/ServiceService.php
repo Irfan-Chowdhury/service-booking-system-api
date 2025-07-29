@@ -15,4 +15,17 @@ class ServiceService
     {
         return Service::create($data);
     }
+
+    public function updateService(int $id, array $data): Service
+    {
+        $service = Service::findOrFail($id);
+        $service->update($data);
+        return $service;
+    }
+
+    public function deleteService(int $id): void
+    {
+        $service = Service::findOrFail($id);
+        $service->delete();
+    }
 }

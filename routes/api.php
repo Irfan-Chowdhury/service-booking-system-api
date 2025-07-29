@@ -15,5 +15,7 @@ Route::controller(AuthController::class)->group(function(){
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
+    
     Route::get('/services', [ServiceController::class, 'index']);
+    Route::post('/services', [ServiceController::class, 'store']);
 });

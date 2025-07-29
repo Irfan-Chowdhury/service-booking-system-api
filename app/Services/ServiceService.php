@@ -10,4 +10,9 @@ class ServiceService
     {
         return Service::where('status', true)->get();
     }
+
+    public function createService(array $data): Service
+    {
+        return Service::create($data);
+    }
 }

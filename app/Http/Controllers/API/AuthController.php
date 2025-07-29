@@ -56,4 +56,29 @@ class AuthController extends BaseController
             return $this->errorResponse('Login failed: ' . $e->getMessage(), $statusCode);
         }
     }
+
+    // public function logout(Request $request)
+    // {
+    //     $request->user()->currentAccessToken()->delete();
+
+    //     // return response()->json([
+    //     //     'message' => 'Logged out successfully',
+    //     // ], 200);
+
+    //     return $this->successResponse(
+    //             'Logged out successfully',
+    //             [],
+    //             200
+    //         );
+    // }
+
+    public function logout(Request $request, AuthService $authService): JsonResponse
+    {
+        try {
+            $authService->logout($request->user());
+            return $this->successResponse('Logout successful.', [], 200);
+        } catch (Exception $e) {
+            return $this->errorResponse('Logout failed: ' . $e->getMessage(), 500);
+        }
+    }
 }

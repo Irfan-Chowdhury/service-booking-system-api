@@ -16,18 +16,40 @@ Route::controller(AuthController::class)->group(function(){
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/logout', [AuthController::class, 'logout']);
 
-    Route::prefix('services')->group(function () {
-        Route::controller(ServiceController::class)->group(function () {
-            Route::get('/', 'index'); //Customer
-            Route::post('/', 'store'); //Admin
-            Route::put('/{id}', 'update'); //Admin
-            Route::delete('/{id}', 'destroy'); //Admin
+    // Route::prefix('services')->group(function () {
+    //     Route::controller(ServiceController::class)->group(function () {
+    //         Route::get('/', 'index'); //Customer
+    //         Route::post('/', 'store'); //Admin
+    //         Route::put('/{id}', 'update'); //Admin
+    //         Route::delete('/{id}', 'destroy'); //Admin
+    //     });
+    // });
+
+    // Route::post('/bookings', [BookingController::class, 'store']);
+    // Route::get('/bookings', [BookingController::class, 'getAllBookingsByCustomer']);
+
+    // Route::get('/admin/bookings', [BookingController::class, 'getAllBookingsByAdmin']);
+
+
+
+    Route::middleware(['role:admin'])->group(function () {
+        Route::prefix('services')->group(function () {
+            Route::controller(ServiceController::class)->group(function () {
+                Route::post('/', 'store');
+                Route::put('/{id}', 'update');
+                Route::delete('/{id}', 'destroy');
+            });
         });
+        Route::get('/admin/bookings', [BookingController::class, 'getAllBookingsByAdmin']);
     });
 
 
-    Route::post('/bookings', [BookingController::class, 'store']);
-    Route::get('/bookings', [BookingController::class, 'getAllBookingsByCustomer']);
+    // Route::middleware(['role:customer'])->group(function () {
+        Route::get('/services', [ServiceController::class, 'index']);
+        Route::prefix('bookings')->group(function () {
+            Route::get('/', [BookingController::class, 'getAllBookingsByCustomer']);
+            Route::post('/', [BookingController::class, 'store']);
+        });
+    // });
 
-    Route::get('/admin/bookings', [BookingController::class, 'getAllBookingsByAdmin']);
 });

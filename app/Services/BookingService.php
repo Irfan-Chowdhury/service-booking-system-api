@@ -7,9 +7,16 @@ namespace App\Services;
 use App\Models\Booking;
 use Exception;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Database\Eloquent\Collection;
 
 class BookingService
 {
+
+    public function getAllBooking(): Collection
+    {
+        return auth()->user()->bookings()->with(['user', 'service'])->get();
+    }
+
     public function createBooking(array $data, int $userId): Booking
     {
         if (self::isAlreadyBookedWithSameDate( (int) $data['service_id'], $data['booking_date'])) {

@@ -19,7 +19,7 @@ class BookingController extends BaseController
             return $this->successResponse(
                 'Booking created successfully',
                 new BookingResource($booking),
-                200
+                201
             );
 
         } catch (Exception $e) {

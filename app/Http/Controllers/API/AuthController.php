@@ -38,6 +38,7 @@ class AuthController extends BaseController
 
     public function login(LoginRequest $request, AuthService $authService)
     {
+
         try {
             $result = $authService->login($request->validated());
 
@@ -49,6 +50,7 @@ class AuthController extends BaseController
                 ],
                 200
             );
+
 
         } catch (Exception $e) {
             $statusCode = $e->getCode() === 401 ? 401 : 500;

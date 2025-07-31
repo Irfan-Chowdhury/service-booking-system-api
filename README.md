@@ -98,6 +98,11 @@ php artisan test
 ```
 ---
 
+### Test Result : 
+
+<img src="https://snipboard.io/5J6YK4.jpg" />
+
+
 <br>
 
 ## User Login Credentials 

@@ -107,7 +107,7 @@ it('returns 404 when trying to delete non-existing service', function () {
     $response->assertStatus(404)
         ->assertJson([
             'success' => false,
-            'message' => 'Service not found.',
+            'message' => 'Resource not found',
         ]);
 });
 

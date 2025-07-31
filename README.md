@@ -1,67 +1,301 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+<div align='center'>
 
-## About Laravel
+# 🛠️ Service Booking API System
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+</div>
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+A token-authenticated, API-based service booking platform built with Laravel. It allows customers to register, view services, and make bookings, while admins can manage services and monitor bookings.
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
 
-## Learning Laravel
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+## Features
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### Authentication (Laravel Sanctum)
+- Customer registration & login
+- Admin login (via seeded credentials)
+- Token-based authentication (Sanctum)
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### User Roles
+- `customer`: Can browse services and book
+- `admin`: Can manage services and view all bookings
 
-## Laravel Sponsors
+### Core Modules
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+#### Users
+- Role-based authorization (`admin`/`customer`)
+- Enum-based user roles for cleaner logic
 
-### Premium Partners
+#### Services
+- CRUD API for admin
+- Public listing API for customers
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+#### Bookings
+- Customers can book a service on a specific date
+- Validation: No booking in the past or duplicate booking (same date/service/user)
 
-## Contributing
+--- 
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+<br>
 
-## Code of Conduct
+## 🧱 Tech Stack
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+- Laravel 11
+- PHP 8.2+
+- Sanctum for API tokens
+- MySQL
+- Pest for testing
+- API Resources for response formatting
+- Form Requests for validation
+- Middleware for role-based protection
+- Laravel Pint for code formatting
 
-## Security Vulnerabilities
+---
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+<br>
 
-## License
+## ⚙️ Setup Instructions
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
-# service-booking-system-api
+1. **Clone the repository**
+
+```bash
+git clone git@github.com:Irfan-Chowdhury/service-booking-system-api.git
+
+cd service-booking-system-api
+````
+
+2. **Install dependencies**
+
+```bash
+composer install
+
+cp .env.example .env
+
+php artisan key:generate
+```
+
+3. **Configure `.env`**
+
+Update your database, mail, queue connection and other credentials.
+
+4. **Run migrations and seeders**
+
+```bash
+php artisan migrate --seed
+```
+
+5. **Run the app**
+
+```bash
+php artisan serve
+```
+> The API will now be available at http://127.0.0.1:8000
+
+6. **Testing by PEST (Optional)**
+
+```bash
+php artisan test
+```
+---
+
+<br>
+
+## User Login Credentials 
+
+- **Email** : admin@example.com
+- **Password** : admin123
+
+<br>
+
+## Customer Login Credentials 
+
+- **Email** : irfan123@gmail.com
+- **Password** : irfan123
+
+---
+
+
+<br>
+
+
+
+## API Endpoints
+
+Here are the available endpoints with their descriptions.
+
+## 🔁 API Endpoints
+
+### 🔓 Public
+| Method | Endpoint         | Description          |
+|--------|------------------|----------------------|
+| POST   | /api/register    | Register a customer  |
+| POST   | /api/login       | Login (admin/customer) |
+
+### 🔐 Authenticated (Customer)
+| Method | Endpoint          | Description                  |
+|--------|-------------------|------------------------------|
+| GET    | /api/services     | List all services            |
+| POST   | /api/bookings     | Book a service               |
+| GET    | /api/bookings     | View own bookings            |
+| POST   | /api/logout       | Logout                       |
+
+### 🔐 Authenticated (Admin Only)
+| Method | Endpoint               | Description         |
+|--------|------------------------|---------------------|
+| POST   | /api/services          | Create a new service |
+| PUT    | /api/services/{id}     | Update service       |
+| DELETE | /api/services/{id}     | Delete service       |
+| GET    | /api/admin/bookings    | View all bookings    |
+
+---
+
+<br>
+
+
+
+## ✅ Validations
+
+- Cannot book a service in the past
+- Cannot book the same service on the same date (per user)
+- Standard Laravel validation using `FormRequest`
+
+---
+
+## API Documentation
+Please click the [API Documentation](https://documenter.getpostman.com/view/34865364/2sB2qgeJnf) link to check overall details for this User Managemnet API. 
+
+
+<br>
+
+## 💡 Notes
+
+* Clean error responses using custom exception handlers
+* Enum-based role and status management
+* Well-structured service layer with `Service Pattern`
+* Reusable middleware (`role:admin`, `role:customer`)
+* `ApiResponse` helper for consistent API structure
+
+
+<br>
+
+
+## Download Postman Collection & Test with Postman
+
+#### Download :
+Please download this **POSTMAN Collection File** : [Download Now](https://drive.google.com/file/d/1VdjZfgayLZ_PVEi3e0-6mj-4FvU70uWA/view?usp=sharing)
+
+
+#### Import :
+
+1. Import the provided Postman collection into your Postman tool.
+2. Setup a Environment to use the token for all API request.
+3. Then click on the root folder, open the **Authorization** tab.  
+    - Select **Type:** `Bearer Token` 
+    - In **Token** field, just put the `environment variable`.
+4. Test all the endpoints mentioned above.
+
+Some screenshot given below - 
+
+<img src="https://snipboard.io/OezHn7.jpg" />
+<br>
+<img src="https://snipboard.io/v8ADLV.jpg" />
+
+
+<br>
+
+## API Authentication (Sanctum)
+
+* All API routes (except login/register) are protected by **Laravel Sanctum**.
+* Use `/api/register` and `/api/login` to get an access token.
+* Attach `Authorization: Bearer {token}` header for all authenticated routes.
+---
+
+<br>
+
+<!-- 
+## Rate Limiting (Throttle)
+* All authenticated API requests are rate limited using Laravel’s `throttle` middleware.
+* By default, a user can make **60 requests per minute**.
+* If exceeded, the API returns `429 Too Many Requests`.
+* This protects the system from abuse and ensures fair usage. -->
+---
+
+<br>
+
+<!-- ## ⚡ Performance Notes
+
+* To optimize reporting queries, **indexes** have been added on the `start_time` and `end_time` columns in the `time_logs` table.
+
+  * This improves the efficiency of **date-based filtering** and **aggregation** (e.g., total hours per day/week/month).
+* **Eloquent relationships are eager-loaded** where needed to avoid N+1 query problems and reduce database load.
+* **Caching** has been applied to frequently accessed data:
+
+  * All **clients** and **projects** for the authenticated user are cached per user to reduce repetitive queries.
+  * **Report results** are cached based on filters like date range, client, and project to avoid heavy recomputation during repeated API hits.
+* These optimizations collectively enhance API performance, especially under high traffic or large data volumes. -->
+
+---
+
+<br>
+
+<!-- ## 📊 Reports & Filtering
+
+### Endpoint
+
+```http
+GET /api/report?client_id=&project_id=&from=YYYY-MM-DD&to=YYYY-MM-DD
+```
+
+### Supported Filters
+
+| Param        | Required | Description         |
+| ------------ | -------- | ------------------- |
+| `client_id`  | Optional | Filter by client    |
+| `project_id` | Optional | Filter by project   |
+| `from`       | Optional | Start date for logs |
+| `to`         | Optional | End date for logs   |
+
+### Returns:
+
+```json
+{
+  "by_day": {
+    "2024-06-01": 6.5,
+    "2024-06-02": 3
+  },
+  "by_project": [
+    {
+      "project_id": 1,
+      "project_title": "Landing Page Design",
+      "total_hours": 9.5
+    }
+  ],
+  "by_client": [
+    {
+      "client_id": 2,
+      "client_name": "Acme Inc.",
+      "total_hours": 9.5
+    }
+  ]
+}
+``` -->
+
+---
+
+## Error Handling
+The API includes proper error handling with meaningful HTTP status codes:
+- **401 Authentication:** Access to app.
+- **403 Forbidden:** Unauthorized access.
+- **404 Not Found:** Resource not found.
+- **422 Unprocessable Entity:** Validation errors.
+- **429 Error:** Too Many Request.
+- **500 Error:** Internal Server error.
+
+
+
+
+## 👨‍💻 Author
+
+**Md Irfan Chowdhury** <br>
+PHP-Laravel Developer  <br>
+🔗 [LinkedIn Profile](https://www.linkedin.com/in/irfan-chowdhury/) | 📧 [irfanchowdhury80@gmail.com](irfanchowdhury80@gmail.com)

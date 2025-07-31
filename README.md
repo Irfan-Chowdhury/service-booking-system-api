@@ -213,9 +213,9 @@ Some screenshot given below of my previous project's -
 * All API routes (except login/register) are protected by **Laravel Sanctum**.
 * Use `/api/register` and `/api/login` to get an access token.
 * Attach `Authorization: Bearer {token}` header for all authenticated routes.
+
 ---
 
-<br>
 
 <!-- 
 ## Rate Limiting (Throttle)
@@ -223,9 +223,7 @@ Some screenshot given below of my previous project's -
 * By default, a user can make **60 requests per minute**.
 * If exceeded, the API returns `429 Too Many Requests`.
 * This protects the system from abuse and ensures fair usage. -->
----
 
-<br>
 
 <!-- ## ⚡ Performance Notes
 
@@ -239,53 +237,10 @@ Some screenshot given below of my previous project's -
   * **Report results** are cached based on filters like date range, client, and project to avoid heavy recomputation during repeated API hits.
 * These optimizations collectively enhance API performance, especially under high traffic or large data volumes. -->
 
----
 
 <br>
 
-<!-- ## 📊 Reports & Filtering
 
-### Endpoint
-
-```http
-GET /api/report?client_id=&project_id=&from=YYYY-MM-DD&to=YYYY-MM-DD
-```
-
-### Supported Filters
-
-| Param        | Required | Description         |
-| ------------ | -------- | ------------------- |
-| `client_id`  | Optional | Filter by client    |
-| `project_id` | Optional | Filter by project   |
-| `from`       | Optional | Start date for logs |
-| `to`         | Optional | End date for logs   |
-
-### Returns:
-
-```json
-{
-  "by_day": {
-    "2024-06-01": 6.5,
-    "2024-06-02": 3
-  },
-  "by_project": [
-    {
-      "project_id": 1,
-      "project_title": "Landing Page Design",
-      "total_hours": 9.5
-    }
-  ],
-  "by_client": [
-    {
-      "client_id": 2,
-      "client_name": "Acme Inc.",
-      "total_hours": 9.5
-    }
-  ]
-}
-``` -->
-
----
 
 ## Error Handling
 The API includes proper error handling with meaningful HTTP status codes:

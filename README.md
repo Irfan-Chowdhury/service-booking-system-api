@@ -162,7 +162,7 @@ Here are the available endpoints with their descriptions.
 ---
 
 ## API Documentation
-Please click the [API Documentation](https://documenter.getpostman.com/view/34865364/2sB2qgeJnf) link to check overall details for this User Managemnet API. 
+Please click the [API Documentation](https://documenter.getpostman.com/view/34865364/2sB3BAKWzR) link to check overall details for this Service Booking API. 
 
 
 <br>
@@ -182,7 +182,7 @@ Please click the [API Documentation](https://documenter.getpostman.com/view/3486
 ## Download Postman Collection & Test with Postman
 
 #### Download :
-Please download this **POSTMAN Collection File** : [Download Now](https://drive.google.com/file/d/1VdjZfgayLZ_PVEi3e0-6mj-4FvU70uWA/view?usp=sharing)
+Please download this **POSTMAN Collection File** : [Download Now](https://drive.google.com/file/d/1uDGXVlEsNEgHBW_ri3JVDUj_TUyskIMl/view?usp=sharing)
 
 
 #### Import :
@@ -194,7 +194,7 @@ Please download this **POSTMAN Collection File** : [Download Now](https://drive.
     - In **Token** field, just put the `environment variable`.
 4. Test all the endpoints mentioned above.
 
-Some screenshot given below - 
+Some screenshot given below of my previous project's - 
 
 <img src="https://snipboard.io/OezHn7.jpg" />
 <br>

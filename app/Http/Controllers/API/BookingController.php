@@ -12,7 +12,21 @@ use Exception;
 class BookingController extends BaseController
 {
 
-    public function index(BookingService $bookingService)
+    public function getAllBookingsByCustomer(BookingService $bookingService)
+    {
+        try {
+            $bookings = $bookingService->getAllBooking();
+
+            return $this->successResponse(
+                'Bookings retrieved successfully',
+                BookingResource::collection($bookings)
+            );
+        } catch (Exception $e) {
+            return $this->errorResponse('Failed to retrieve bookings: ' . $e->getMessage(), $e->getCode() ?: 500);
+        }
+    }
+
+    public function getAllBookingsByAdmin(BookingService $bookingService)
     {
         try {
             $bookings = $bookingService->getAllBooking();

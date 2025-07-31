@@ -49,7 +49,7 @@ class ServiceSeeder extends Seeder
             ],
         ];
 
-        DB::table('services')->delete();
+        // DB::table('services')->delete();
 
         Service::insert($services);
     }

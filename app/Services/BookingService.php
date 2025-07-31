@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Services;
 
+use App\Enum\UserRole;
 use App\Models\Booking;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -14,7 +15,13 @@ class BookingService
 
     public function getAllBooking(): Collection
     {
-        return auth()->user()->bookings()->with(['user', 'service'])->get();
+        $user = auth()->user();
+
+        if ($user->role === UserRole::ADMIN->value)
+            return Booking::with(['user', 'service'])->get();
+        else
+            return $user->bookings()->with(['user', 'service'])->get();
+
     }
 
     public function createBooking(array $data, int $userId): Booking

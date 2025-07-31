@@ -2,16 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Booking\BookingStoreRequest;
 use App\Http\Resources\BookingResource;
-use Illuminate\Http\Request;
 use App\Services\BookingService;
 use Exception;
 
 class BookingController extends BaseController
 {
-
     public function getAllBookingsByCustomer(BookingService $bookingService)
     {
         try {
@@ -22,7 +19,7 @@ class BookingController extends BaseController
                 BookingResource::collection($bookings)
             );
         } catch (Exception $e) {
-            return $this->errorResponse('Failed to retrieve bookings: ' . $e->getMessage(), $e->getCode() ?: 500);
+            return $this->errorResponse('Failed to retrieve bookings: '.$e->getMessage(), $e->getCode() ?: 500);
         }
     }
 
@@ -36,7 +33,7 @@ class BookingController extends BaseController
                 BookingResource::collection($bookings)
             );
         } catch (Exception $e) {
-            return $this->errorResponse('Failed to retrieve bookings: ' . $e->getMessage(), $e->getCode() ?: 500);
+            return $this->errorResponse('Failed to retrieve bookings: '.$e->getMessage(), $e->getCode() ?: 500);
         }
     }
 
@@ -52,7 +49,7 @@ class BookingController extends BaseController
             );
 
         } catch (Exception $e) {
-            return $this->errorResponse('Failed to create booking: ' . $e->getMessage(), $e->getCode() ?: 500);
+            return $this->errorResponse('Failed to create booking: '.$e->getMessage(), $e->getCode() ?: 500);
         }
     }
 }

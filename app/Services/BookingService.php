@@ -7,26 +7,26 @@ namespace App\Services;
 use App\Enum\UserRole;
 use App\Models\Booking;
 use Exception;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\DB;
 
 class BookingService
 {
-
     public function getAllBooking(): Collection
     {
         $user = auth()->user();
 
-        if ($user->role === UserRole::ADMIN->value)
+        if ($user->role === UserRole::ADMIN->value) {
             return Booking::with(['user', 'service'])->get();
-        else
+        } else {
             return $user->bookings()->with(['user', 'service'])->get();
+        }
 
     }
 
     public function createBooking(array $data, int $userId): Booking
     {
-        if (self::isAlreadyBookedWithSameDate( (int) $data['service_id'], $data['booking_date'])) {
+        if (self::isAlreadyBookedWithSameDate((int) $data['service_id'], $data['booking_date'])) {
             throw new Exception('You have already booked this service on the same date.', 422);
         }
 

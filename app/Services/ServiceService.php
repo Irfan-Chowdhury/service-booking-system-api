@@ -22,6 +22,7 @@ class ServiceService
     {
         $service = Service::findOrFail($id);
         $service->update($data);
+
         return $service;
     }
 

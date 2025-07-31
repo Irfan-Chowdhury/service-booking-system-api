@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace App\Services;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\DB;
 use Exception;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
@@ -21,14 +21,14 @@ class AuthService
 
             return [
                 'token' => $user->createToken('ServiceBookingApp')->plainTextToken,
-                'user'  => $user,
+                'user' => $user,
             ];
         });
     }
 
     public function login(array $credentials): array
     {
-        if (!Auth::attempt($credentials)) {
+        if (! Auth::attempt($credentials)) {
             throw new Exception('Invalid credentials', 401);
         }
 
@@ -37,7 +37,7 @@ class AuthService
 
         return [
             'token' => $token,
-            'user'  => $user,
+            'user' => $user,
         ];
     }
 

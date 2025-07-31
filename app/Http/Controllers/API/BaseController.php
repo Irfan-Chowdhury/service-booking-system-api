@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
 
 class BaseController extends Controller
 {
@@ -15,7 +14,7 @@ class BaseController extends Controller
             'statusCode' => $code,
             'success' => true,
             'message' => $message,
-            'data'    => $result,
+            'data' => $result,
         ];
 
         return response()->json($response, $code);
@@ -26,13 +25,12 @@ class BaseController extends Controller
         $response = [
             'statusCode' => $statusCode,
             'success' => false,
-            "message" => self::statusCodeToMessage($statusCode) ?? 'Server Error',
+            'message' => self::statusCodeToMessage($statusCode) ?? 'Server Error',
             'errors' => ['message' => [$message]],
         ];
 
         return response()->json($response, $statusCode);
     }
-
 
     public function statusCodeToMessage(int $statusCode): string
     {
@@ -60,5 +58,4 @@ class BaseController extends Controller
             default => 'Unknown Error',
         };
     }
-
 }

@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Service\ServiceCreateRequest;
 use App\Http\Requests\Service\ServiceUpdateRequest;
 use App\Http\Resources\ServiceResource;
 use App\Services\ServiceService;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 
 class ServiceController extends BaseController
 {
@@ -33,12 +31,11 @@ class ServiceController extends BaseController
             return (new ServiceResource($service))->additional([
                 'statusCode' => 201,
                 'success' => true,
-                'message' => 'Service created successfully.'
+                'message' => 'Service created successfully.',
             ]);
 
-
         } catch (Exception $e) {
-            return $this->errorResponse('Failed to create service: ' . $e->getMessage(), 500);
+            return $this->errorResponse('Failed to create service: '.$e->getMessage(), 500);
         }
     }
 
@@ -50,14 +47,13 @@ class ServiceController extends BaseController
             return (new ServiceResource($service))->additional([
                 'statusCode' => 200,
                 'success' => true,
-                'message' => 'Service updated successfully.'
+                'message' => 'Service updated successfully.',
             ]);
 
         } catch (Exception $e) {
-            return $this->errorResponse('Failed to update service: ' . $e->getMessage(),  500);
+            return $this->errorResponse('Failed to update service: '.$e->getMessage(), 500);
         }
     }
-
 
     public function destroy(ServiceService $serviceService, int $id)
     {
@@ -71,9 +67,8 @@ class ServiceController extends BaseController
             );
         } catch (ModelNotFoundException $e) {
             return $this->errorResponse('Service not found.', 404);
-        }
-        catch (Exception $e) {
-            return $this->errorResponse('Failed to delete service: ' . $e->getMessage(), 500);
+        } catch (Exception $e) {
+            return $this->errorResponse('Failed to delete service: '.$e->getMessage(), 500);
         }
     }
 }

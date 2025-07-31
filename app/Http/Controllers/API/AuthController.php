@@ -2,17 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Http\Resources\UserResource;
-use Illuminate\Http\Request;
-use Illuminate\Http\JsonResponse;
-use App\Models\User;
 use App\Services\AuthService;
 use Exception;
-use Illuminate\Support\Facades\Auth;
-use Validator;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
 class AuthController extends BaseController
 {
@@ -25,16 +21,15 @@ class AuthController extends BaseController
                 'User registered successfully',
                 [
                     'token' => $result['token'],
-                    'user'  => new UserResource($result['user']),
+                    'user' => new UserResource($result['user']),
                 ],
                 201
             );
 
         } catch (Exception $e) {
-            return $this->errorResponse('Registration failed : '. $e->getMessage(), 500);
+            return $this->errorResponse('Registration failed : '.$e->getMessage(), 500);
         }
     }
-
 
     public function login(LoginRequest $request, AuthService $authService)
     {
@@ -46,27 +41,26 @@ class AuthController extends BaseController
                 'Login successful.',
                 [
                     'token' => $result['token'],
-                    'user'  => new UserResource($result['user']),
+                    'user' => new UserResource($result['user']),
                 ],
                 200
             );
 
-
         } catch (Exception $e) {
             $statusCode = $e->getCode() === 401 ? 401 : 500;
 
-            return $this->errorResponse('Login failed: ' . $e->getMessage(), $statusCode);
+            return $this->errorResponse('Login failed: '.$e->getMessage(), $statusCode);
         }
     }
-
 
     public function logout(Request $request, AuthService $authService): JsonResponse
     {
         try {
             $authService->logout($request->user());
+
             return $this->successResponse('Logout successful.', [], 200);
         } catch (Exception $e) {
-            return $this->errorResponse('Logout failed: ' . $e->getMessage(), 500);
+            return $this->errorResponse('Logout failed: '.$e->getMessage(), 500);
         }
     }
 }

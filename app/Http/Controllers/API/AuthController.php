@@ -21,14 +21,14 @@ class AuthController extends BaseController
         try {
             $result = $authService->register($request->validated());
 
-            // return $this->successResponse( 'User registered successfully.', new UserResource($result['user']), 201);
-
-            return (new UserResource($result['user']))->additional([
-                'token' => $result['token'],
-                'statusCode' => 201,
-                'success' => true,
-                'message' => 'User registered successfully.'
-            ]);
+            return $this->successResponse(
+                'User registered successfully',
+                [
+                    'token' => $result['token'],
+                    'user'  => new UserResource($result['user']),
+                ],
+                201
+            );
 
         } catch (Exception $e) {
             return $this->errorResponse('Registration failed : '. $e->getMessage(), 500);

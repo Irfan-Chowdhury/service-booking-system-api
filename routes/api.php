@@ -14,7 +14,7 @@ Route::controller(AuthController::class)->group(function(){
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/logout', [AuthController::class, 'logout']);
+    Route::post('/logout', [AuthController::class, 'logout']);
 
     Route::middleware(['role:admin'])->group(function () {
         Route::prefix('services')->group(function () {
@@ -28,12 +28,12 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
 
-    // Route::middleware(['role:customer'])->group(function () {
+    Route::middleware(['role:customer'])->group(function () {
         Route::get('/services', [ServiceController::class, 'index']);
         Route::prefix('bookings')->group(function () {
             Route::get('/', [BookingController::class, 'getAllBookingsByCustomer']);
             Route::post('/', [BookingController::class, 'store']);
         });
-    // });
+    });
 
 });
